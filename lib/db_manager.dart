@@ -1,23 +1,23 @@
 import 'dart:io';
 
 import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
-  static final _databaseName = "MyDatabase.db";
-  static final _databaseVersion = 1;
+  static const _databaseName = "MyDatabase.db";
+  static const _databaseVersion = 1;
 
-  static final table = 'category';
-  static final tableContact = 'contact';
+  static const table = 'category';
+  static const tableContact = 'contact';
 
-  static final columnId = '_id';
-  static final columnName = 'name';
-  static final columnLName = 'lname';
-  static final columnMobile = 'mobile';
-  static final columnEmail = 'email';
-  static final columnCategory = 'cat';
-  static final columnProfile = 'profile';
+  static const columnId = '_id';
+  static const columnName = 'name';
+  static const columnLName = 'lname';
+  static const columnMobile = 'mobile';
+  static const columnEmail = 'email';
+  static const columnCategory = 'cat';
+  static const columnProfile = 'profile';
 
   // make this a singleton class
   DatabaseHelper._privateConstructor();
@@ -27,9 +27,7 @@ class DatabaseHelper {
   static Database? _database;
   Future<Database> get database async => _database ??= await _initDatabase();
   Future<Database?> get database1 async {
-    if (_database == null) {
-      _database = await _initDatabase();
-    }
+    _database ??= await _initDatabase();
     return _database;
   }
 

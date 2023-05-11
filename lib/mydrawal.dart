@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sqlite/add_contact.dart';
+import 'package:flutter_sqlite/add_category.dart';
 import 'package:flutter_sqlite/contact_list.dart';
 import 'package:flutter_sqlite/homepage.dart';
 
@@ -25,7 +25,7 @@ class MyDrawal extends StatelessWidget {
           children: [
             ListTile(
               title: const Text(
-                'Add Category',
+                'Add Occupation',
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {
@@ -40,12 +40,12 @@ class MyDrawal extends StatelessWidget {
             ),
             ListTile(
               title: const Text(
-                'Add Contact',
+                'Add Friend',
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (_) => const AddContact()));
+                    context, MaterialPageRoute(builder: (_) => const AddCategory()));
               },
             ),
             const Divider(
@@ -55,7 +55,7 @@ class MyDrawal extends StatelessWidget {
             ),
             ListTile(
               title: const Text(
-                'Contact List',
+                'Friends List',
                 style: TextStyle(color: Colors.white),
               ),
               onTap: () {

@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final dbHelper = DatabaseHelper.instance;
+  String intitialValue = ""; 
   List<Map<String, dynamic>> allCategoryData = [];
   final TextEditingController _categoryName = TextEditingController();
   final formGlobalKey = GlobalKey<FormState>();
@@ -26,13 +27,16 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if(intitialValue.isNotEmpty){
+      _categoryName.text = intitialValue; 
+    }
     return SafeArea(
         child: Scaffold(
       drawer: MyDrawal(),
       appBar: AppBar(
         backgroundColor: MyColors.primaryColor,
         centerTitle: true,
-        title: Text("Create new occupation category"),
+        title: Text("Add a new occupation"),
       ),
       body: Form(
         key: formGlobalKey,
@@ -63,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                                 borderSide: BorderSide(
                                     color: MyColors.primaryColor, width: 1.0),
                               ),
-                              hintText: 'Add Category',
+                              hintText: 'Add Occupation',
                               contentPadding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 5),
                             ),
@@ -123,7 +127,9 @@ class _HomePageState extends State<HomePage> {
                                     Text("${item['name']}"),
                                     Spacer(),
                                     IconButton(
-                                      onPressed: null,
+                                      onPressed: () {
+                                        _edit(item['_id']);
+                                      },
                                       icon: Icon(Icons.edit),
                                     ),
                                     IconButton(
@@ -170,7 +176,9 @@ class _HomePageState extends State<HomePage> {
     print('query all rows:');
     allRows.forEach(print);
     allCategoryData = allRows;
-    setState(() {});
+    setState(() {
+      intitialValue = ""; 
+    });
   }
 
   void _delete(int id) async {
@@ -179,4 +187,23 @@ class _HomePageState extends State<HomePage> {
     print('deleted $rowsDeleted row(s): row $id');
     _query();
   }
+
+  void _edit(int id) async {
+     final allRows = await dbHelper.queryAllRows(); 
+    print(allRows);
+    int rowsDeleted = await dbHelper.delete(id); 
+    allCategoryData = allRows;
+    String newValue = "";  
+    for(int i  =0 ; i< allRows.length; i++) {
+      if(allRows[i]["_id"]==id){
+        newValue = allRows[i]["name"];
+        break; 
+      }
+    }
+    allCategoryData = await dbHelper.queryAllRows();   
+    setState(() {
+      intitialValue = newValue;  
+    });
+  }
+
 }

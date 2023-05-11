@@ -59,9 +59,11 @@ class _ContactListState extends State<ContactList> {
                           Text("${item['name']}"),
                           Text("${item['lname']}"),
                           const Spacer(),
-                          const IconButton(
-                            onPressed: null,
-                            icon: Icon(Icons.edit),
+                          IconButton(
+                            onPressed: () {
+                              _edit(item['_id']);
+                            },
+                            icon: const Icon(Icons.edit),
                           ),
                           IconButton(
                             onPressed: () {
@@ -92,6 +94,11 @@ class _ContactListState extends State<ContactList> {
     allRows.forEach(print);
     allCategoryData = allRows;
     setState(() {});
+  }
+
+
+  void _edit(int id) async {
+    print("trying to edit $id"); 
   }
 
   void _delete(int id) async {

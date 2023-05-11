@@ -13,14 +13,14 @@ import 'colors.dart';
 import 'db_manager.dart';
 import 'mydrawal.dart';
 
-class AddContact extends StatefulWidget {
-  const AddContact({Key? key}) : super(key: key);
+class AddCategory extends StatefulWidget {
+  const AddCategory({Key? key}) : super(key: key);
 
   @override
-  _AddContactState createState() => _AddContactState();
+  _AddCategoryState createState() => _AddCategoryState();
 }
 
-class _AddContactState extends State<AddContact> {
+class _AddCategoryState extends State<AddCategory> {
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
   final TextEditingController _mobileNumber = TextEditingController();
@@ -62,7 +62,7 @@ class _AddContactState extends State<AddContact> {
         appBar: AppBar(
           backgroundColor: MyColors.primaryColor,
           centerTitle: true,
-          title: Text("Add Contact"),
+          title: Text("Add Friends"),
         ),
         body: ListView(
           children: [
@@ -228,7 +228,7 @@ class _AddContactState extends State<AddContact> {
                             onChanged: (selectedItem) => setState(() {
                               currentCategory = selectedItem!;
                             }),
-                            hint: Text("Select Category "),
+                            hint: Text("Select Occupation "),
                             value: currentCategory.isEmpty ? null : currentCategory,
                           ),
                         ),
