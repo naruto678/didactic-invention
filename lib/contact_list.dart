@@ -1,7 +1,8 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sqlite/edit_category.dart';
 import 'package:flutter_sqlite/mydrawal.dart';
 
 import 'colors.dart';
@@ -98,7 +99,32 @@ class _ContactListState extends State<ContactList> {
 
 
   void _edit(int id) async {
-    print("trying to edit $id"); 
+    print("calling edit on $id");
+    
+    final contacts = await dbHelper.queryAllRowsofContact(); 
+
+    String firstName = ""; 
+    String lastName = ""; 
+    String emailAddress = ""; 
+    String mobileNumber = "";
+    String category = "";  
+    print("These are the contacts"); 
+    print(contacts); 
+    for(int i = 0 ; i< contacts.length; i++){
+      if(contacts[i]["_id"] ==id ) {
+        firstName = contacts[i]["name"]; 
+        lastName = contacts[i]["lname"]; 
+        emailAddress = contacts[i]["email"]; 
+        mobileNumber = contacts[i]["mobile"]; 
+        category = contacts[i]["cat"]; 
+
+
+        break;     
+      }
+    }
+    final rowsDeleted = await dbHelper.deleteContact(id); 
+    print("deletd $rowsDeleted during edit operation"); 
+    Navigator.push(context, MaterialPageRoute(builder: (_)=>  EditCategory(firstName: firstName, lastName: lastName, mobileNumber: mobileNumber, emailAddress: emailAddress)));  
   }
 
   void _delete(int id) async {

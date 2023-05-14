@@ -13,14 +13,20 @@ import 'colors.dart';
 import 'db_manager.dart';
 import 'mydrawal.dart';
 
-class AddCategory extends StatefulWidget {
-  const AddCategory({Key? key}) : super(key: key);
+
+class EditCategory extends StatefulWidget {
+  final String firstName;
+  final String lastName; 
+  final String mobileNumber; 
+  final String emailAddress; 
+
+  const EditCategory({Key? key, required this.firstName, required this.lastName, required this.mobileNumber, required this.emailAddress }) : super(key: key);
 
   @override
-  _AddCategoryState createState() => _AddCategoryState();
+  _EditCategoryState createState() => _EditCategoryState();
 }
 
-class _AddCategoryState extends State<AddCategory> {
+class _EditCategoryState extends State<EditCategory> {
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
   final TextEditingController _mobileNumber = TextEditingController();
@@ -42,14 +48,19 @@ class _AddCategoryState extends State<AddCategory> {
   @override
   void initState() {
     super.initState();
-    _query();
-    var signatureCanvas = Signature(
-      controller: _controller,
-      width: 300,
-      height: 300,
-      backgroundColor: Colors.lightBlueAccent,
-    );
+    _query(); 
+    _firstName.text = widget.firstName; 
+    _lastName.text = widget.lastName; 
+    _mobileNumber.text = widget.mobileNumber; 
+    _emailAddress.text = widget.emailAddress; 
+    var signatureCanvas = Signature( 
+      controller : _controller, 
+      width: 300, 
+      height: 300
+    ); 
   }
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -285,7 +296,7 @@ class _AddCategoryState extends State<AddCategory> {
       print('inserted row id: $id');
     }
     _query();
-    Navigator.push(context, MaterialPageRoute(builder: (_)=>ContactList()));
+    Navigator.push(context, MaterialPageRoute(builder: (_)=> ContactList()));  
   }
 
   void _query() async {
